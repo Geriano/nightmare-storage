@@ -1,0 +1,33 @@
+name: 'nightmare'
+version: '3.3'
+services:
+  nightmare-storage-app:
+    container_name: nightmare-storage-app
+    build: 
+      context: ..
+      dockerfile: ./storage/Dockerfile.dev
+    command: cargo watch -x "run"
+    environment:
+      TZ: Asia/Jakarta
+      RUST_LOG: debug
+      RUST_BACKTRACE: 1
+      ENVIRONMENT: local
+      NAME: Nightmare
+      SCHEME: http
+      HOST: 0.0.0.0
+      PORT: 8000
+      PREFIX: /api/v1
+      API_DOC: /doc
+      DATABASE_URL: postgres://root:root@nightmare-db/storage
+      AUTH_URL: postgres://root:root@nightmare-db/auth
+    expose:
+      - 8000
+    ports:
+      - 8000
+    volumes:
+      - ../common:/app/common
+      - ./migration:/app/storage/migration
+      - ./src:/app/storage/src
+      - ./uploads:/app/storage/uploads
+      - ./.env:/app/storage/.env
+      - ./Cargo.toml:/app/storage/Cargo.toml
