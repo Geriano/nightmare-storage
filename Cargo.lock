@@ -2509,7 +2509,7 @@ dependencies = [
 [[package]]
 name = "nightmare-common"
 version = "0.1.0"
-source = "git+https://github.com/Geriano/nightmare-common#9b0da5b316dfc0bcef12f93009ea52187ef06af4"
+source = "git+https://github.com/Geriano/nightmare-common#4899829b07446f0c4b803e5a244fc1d3c6f37581"
 dependencies = [
  "actix",
  "actix-web",
@@ -4455,7 +4455,7 @@ version = "1.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "97fee6b57c6a41524a810daee9286c02d7752c4253064d0b05472833a438f675"
 dependencies = [
- "cfg-if 1.0.0",
+ "cfg-if 0.1.10",
  "rand",
  "static_assertions",
 ]
