@@ -6,7 +6,7 @@ use actix_web::{HttpResponse, http::header::ContentDisposition, Responder, Respo
 use nightmare_common::{middleware::auth::Auth, log, request::pagination::PaginationRequest, time, response::http, base58};
 use reqwest::StatusCode;
 use sea_orm::{DatabaseConnection, EntityTrait, QueryFilter, ColumnTrait, Condition, PaginatorTrait, QuerySelect, QueryTrait, ConnectionTrait};
-use serde_json::json;
+use serde_json::{json, Value};
 use uuid::Uuid;
 
 use crate::{requests::storage::{Upload, Delete, Order}, models::storages, dao};
@@ -183,6 +183,16 @@ pub async fn store(
             }))
         },
         Ok(_) => {
+            let storages = storages.iter()
+                .map(|storage| json!({
+                    "id": base58::to_string(storage.id.clone()),
+                    "name": storage.name.clone(),
+                    "mime": storage.mime.clone(),
+                    "extension": storage.extension.clone(),
+                    "path": storage.path.clone(),
+                }))
+                .collect::<Vec<Value>>();
+
             HttpResponse::Created().json(json!({
                 "storages": storages,
             }))

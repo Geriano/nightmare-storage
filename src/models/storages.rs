@@ -5,6 +5,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Eq, Serialize, Deserialize)]
 #[sea_orm(table_name = "storages")]
+#[serde(rename_all = "camelCase")]
 pub struct Model {
     #[sea_orm(primary_key, auto_increment = false)]
     pub id: Uuid,
@@ -13,11 +14,17 @@ pub struct Model {
     pub mime: Option<String>,
     pub extension: Option<String>,
     pub path: String,
+    #[serde(skip)]
     pub created_at: DateTime,
+    #[serde(skip)]
     pub created_by_id: Option<String>,
+    #[serde(skip)]
     pub updated_at: DateTime,
+    #[serde(skip)]
     pub updated_by_id: Option<String>,
+    #[serde(skip)]
     pub deleted_at: Option<DateTime>,
+    #[serde(skip)]
     pub deleted_by_id: Option<String>,
 }
 
